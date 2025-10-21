@@ -1,0 +1,49 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: aida
+      MYSQL_DATABASE: shop
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpass
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-u", "root", "-paida"]
+      interval: 5s
+      retries: 5
+
+  api:
+    build: ./api
+    container_name: fastapi_service
+    ports:
+      - "8000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: mysql+aiomysql://user:userpass@mysql_db:3306/shop?charset=utf8mb4
+    restart: always
+
+  bot:
+    build: ./bot
+    container_name: telegram_bot
+    depends_on:
+      - api
+    env_file:
+      - ./bot/.env
+    restart: always
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    restart: always
