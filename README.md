@@ -34,6 +34,9 @@ ecommerce_service/
 ---
 
 ## Настройка
+### Клонируем репозиторий
+git clone <URL_репозитория>
+cd ecommerce_service
 
 ### 1. Настройка `.env` для бота
 
@@ -50,7 +53,7 @@ ADMIN_IDS=ваш_telegram_id
 
 В корневой директории проекта:
 
-- docker compose up --build
+- docker compose up --build -d
 
 Будут запущены:
 MySQL на порту 3308
