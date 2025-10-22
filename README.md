@@ -35,7 +35,8 @@ ecommerce_service/
 
 ## Настройка
 ### Клонируем репозиторий
-git clone <URL_репозитория>
+- git clone <URL_репозитория>
+
 cd ecommerce_service
 
 ### 1. Настройка `.env` для бота
