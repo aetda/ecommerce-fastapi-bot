@@ -5,6 +5,7 @@
 ---
 
 ## Структура проекта
+```
 ecommerce_service/
 ├─ api/ # FastAPI backend
 │ ├─ main.py
@@ -21,7 +22,7 @@ ecommerce_service/
 ├─ db/ # Инициализация базы данных
 │ └─ init.sql
 ├─ docker-compose.yml
-└─ README.md
+└─ README.md```
 
 ---
 
